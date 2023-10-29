@@ -4,18 +4,17 @@ from datetime import datetime
 
 app = FastAPI()
 
-class Aeronave:
-    id: int
-    nome: str
-    horario_chegada: datetime
-    horario_partida: datetime
+id_counter = 1
 
-    def __init__(self, id, nome: str, horario_chegada: datetime, horario_partida: datetime):
-        self.id = id
+
+class Aeronave:
+    def __init__(self, nome: str, horario_chegada: datetime, horario_partida: datetime):
+        global id_counter
+        self.id = id_counter
+        id_counter += 1
         self.nome = nome
         self.horario_chegada = horario_chegada
         self.horario_partida = horario_partida
-
 patio = []
 
 @app.get("/")
@@ -28,7 +27,21 @@ def listar_aeronaves_patio():
     return patio
 
 # Lucas
-#@app.post()
+@app.post('/patio')
+async def adicionar_aeronave(request: Request):
+    body = await request.json()
+
+    if 'nome' not in body or 'horario_chegada' not in body or 'horario_partida' not in body:
+        raise HTTPException(status_code=400, detail="Campos incompletos na requisição")
+
+    nova_aeronave = Aeronave(
+        nome=body['nome'],
+        horario_chegada=body['horario_chegada'],
+        horario_partida=body['horario_partida']
+    )
+
+    patio.append(nova_aeronave)
+    return {"message": "Aeronave adicionada com sucesso", "aeronave": nova_aeronave}
 
 # Arthur
 @app.patch('/patio/{aeronave_id}')
