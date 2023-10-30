@@ -25,7 +25,7 @@ O Aeroporto de Pato Branco recebe aeronaves  diariamente e atualmente faz o cont
 
 | Nome | Método HTTP | Feito |
 | ---- | ----------- | ----- |
-| Antonio da Rosa |  | ✔ |
+| Arthur Lunkes | GET | ✔ |
 | Arthur Lunkes | PATCH | ✔ |
-| Lucas | POST | ❌ |
-| Arthur Lunkes | DELETE | ✔ |
+| Lucas | POST | ✔ |
+| Antonio da Rosa | DELETE | ✔ |
